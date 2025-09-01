@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Governamental – Incentivo à Pesquisa e Tecnologias Brasileiras</title>
+  <meta name="description" content="Feira cultural: políticas públicas, história e exemplos de tecnologias brasileiras apoiadas por investimento em ciência e inovação." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;         /* azul profundo */
+      --bg-soft:#121936;    /* variação */
+      --primary:#0ea5a4;    /* ciano/verde água */
+      --primary-2:#22d3ee;  /* realce */
+      --accent:#f4d35e;     /* amarelo suave */
+      --muted:#9aa3b2;      /* cinza */
+      --card:#0f172a;       /* slate-900 */
+      --white:#f8fafc;      /* quase branco */
+      --success:#10b981;
+      --danger:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg) 0%,#0b1228 100%);color:var(--white);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Navbar */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(10,15,35,.7);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:conic-gradient(from 180deg at 50% 50%, var(--primary), var(--primary-2), var(--accent), var(--primary));box-shadow:0 0 24px rgba(34,211,238,.25)}
+    .brand h1{font-size:16px;margin:0;font-weight:800;letter-spacing:.4px}
+    .nav a{opacity:.9;padding:8px 10px;border-radius:10px}
+    .nav a:hover{background:rgba(255,255,255,.06)}
+    .nav-links{display:flex;gap:6px;flex-wrap:wrap}
+
+    /* Hero */
+    .hero{max-width:1200px;margin:0 auto;padding:56px 20px 32px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:var(--primary-2);font-weight:600;background:rgba(34,211,238,.08)}
+    .title{font-size:40px;line-height:1.06;margin:14px 0 10px;font-weight:800}
+    .subtitle{color:var(--muted);font-size:18px;max-width:60ch}
+    .cta{display:flex;gap:12px;margin-top:22px}
+    .btn{padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(34,211,238,.15),rgba(34,211,238,.05));color:white;font-weight:700;cursor:pointer}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(34,211,238,.15)}
+    .btn.secondary{background:transparent}
+
+    .card-hero{position:relative;background:radial-gradient(1200px 500px at -10% -20%,rgba(34,211,238,.25),transparent),linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);padding:18px;border-radius:18px;box-shadow:inset 0 0 30px rgba(0,0,0,.2)}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    .kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px}
+    .kpi .v{font-size:22px;font-weight:800}
+    .kpi .l{font-size:12px;color:var(--muted)}
+    .hero-illus{height:220px;border-radius:14px;background:conic-gradient(from 0deg,var(--primary) 0deg,var(--primary-2) 120deg,var(--accent) 240deg,var(--primary) 360deg);filter:saturate(1.1) hue-rotate(0deg);mask:radial-gradient(90% 100% at 50% 0%,#000 60%,transparent 100%)}
+
+    /* Sections */
+    section{max-width:1200px;margin:0 auto;padding:38px 20px}
+    .section-title{font-size:28px;margin:0 0 6px;font-weight:800}
+    .section-sub{color:var(--muted);margin:0 0 18px}
+
+    /* Timeline */
+    .timeline{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .event{grid-column:span 6;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;position:relative}
+    .event .year{font-weight:800;color:var(--accent);margin-bottom:6px}
+    .event .desc{color:#cfd5df}
+    @media(min-width:900px){
+      .event:nth-child(odd){grid-column:1/7}
+      .event:nth-child(even){grid-column:7/13}
+    }
+
+    /* Tech grid */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{grid-column:span 4;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(14,165,164,.15);border:1px solid rgba(14,165,164,.35);color:var(--primary-2);font-weight:700;font-size:12px;width:max-content}
+    .muted{color:var(--muted)}
+
+    /* Quiz */
+    .quiz{display:grid;gap:16px}
+    .question{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
+    .question h4{margin:0 0 8px}
+    .options{display:grid;gap:8px}
+    .opt{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;cursor:pointer}
+    .opt input{accent-color:var(--primary)}
+    .result{font-weight:800;margin-top:6px}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));padding:26px 20px;color:#cfd5df}
+    .cols{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .col{grid-column:span 4}
+
+    /* Responsive */
+    @media(max-width:960px){
+      .hero{grid-template-columns:1fr;}
+      .card{grid-column:span 6}
+      .event{grid-column:1/-1}
+      .kpis{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .card{grid-column:span 12}
+      .kpis{grid-template-columns:1fr}
+      .title{font-size:32px}
+      .nav-inner{padding:10px 12px}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Inovação Brasil</h1>
+      </div>
+      <div class="nav-links">
+        <a href="#inicio">Início</a>
+        <a href="#politicas">História & Políticas</a>
+        <a href="#tecnologias">Tecnologias</a>
+        <a href="#desafios">Desafios & Futuro</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#fontes">Fontes</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="inicio" class="hero">
+    <div>
+      <span class="badge">Feira Cultural • Tema Governamental</span>
+      <h2 class="title">Governamental — Incentivo à Pesquisa e Criação de Tecnologias Brasileiras</h2>
+      <p class="subtitle">Como políticas públicas, investimento e colaboração entre universidades, empresas e governo impulsionam descobertas científicas e inovação que impactam a sociedade.</p>
+      <div class="cta">
+        <a class="btn" href="#politicas">Ver a linha do tempo</a>
+        <a class="btn secondary" href="#tecnologias">Explorar tecnologias</a>
+      </div>
+    </div>
+    <div class="card-hero">
+   <section class="banner">
+    <img src="ufjf.png" alt="UFJF">
+  </section>
+      <div class="kpis">
+        <div class="kpi"><div class="v" id="kpi-projetos">0</div><div class="l">Projetos apoiados (exemplo)</div></div>
+        <div class="kpi"><div class="v" id="kpi-bolsas">0</div><div class="l">Bolsas de estudo (exemplo)</div></div>
+        <div class="kpi"><div class="v" id="kpi-parcerias">0</div><div class="l">Parcerias público-privadas</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- POLÍTICAS & HISTÓRIA -->
+  <section id="politicas">
+    <h3 class="section-title">História & Políticas Públicas</h3>
+    <p class="section-sub">Marcos que estruturam o ecossistema de CT&I no Brasil (seleção ilustrativa).</p>
+    <div class="timeline">
+      <div class="event">
+        <div class="year">1951 — Criação do CNPq</div>
+        <div class="desc">Conselho Nacional de Desenvolvimento Científico e Tecnológico: fomento à pesquisa, bolsas e infraestrutura científica.</div>
+      </div>
+      <div class="event">
+        <div class="year">1951 — Criação da CAPES</div>
+        <div class="desc">Aperfeiçoamento de pessoal de nível superior e avaliação da pós-graduação.</div>
+      </div>
+      <div class="event">
+        <div class="year">1967 — FINEP</div>
+        <div class="desc">Financiadora de Estudos e Projetos: crédito e subvenção para inovação em empresas e ICTs.</div>
+      </div>
+      <div class="event">
+        <div class="year">2004 — Lei de Inovação</div>
+        <div class="desc">Estabelece bases para interação ICT–empresa, propriedade intelectual e ambientes de inovação.</div>
+      </div>
+      <div class="event">
+        <div class="year">2016 — Marco Legal de CT&I</div>
+        <div class="desc">Aprimora a desburocratização e a cooperação entre setor público e privado.</div>
+      </div>
+      <div class="event">
+        <div class="year">Fundações de Amparo à Pesquisa (FAPs)</div>
+        <div class="desc">Agências estaduais (como FAPESP, FAPERJ, FAPEMIG) que complementam o fomento em nível regional.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECNOLOGIAS DESTAQUE -->
+  <section id="tecnologias">
+    <h3 class="section-title">Tecnologias Brasileiras de Destaque</h3>
+    <p class="section-sub">Exemplos de resultados de políticas de fomento e da capacidade científica nacional.</p>
+    <div class="grid">
+      <article class="card">
+        <span class="chip">Aeronáutica</span>
+        <h4>Embraer e a Indústria de Aeronaves</h4>
+        <p class="muted">Da formação de engenheiros no ITA ao desenvolvimento de jatos regionais reconhecidos mundialmente, com forte base em P&D.</p>
+      </article>
+      <article class="card">
+        <span class="chip">Saúde Pública</span>
+        <h4>Institutos Fiocruz & Butantan</h4>
+        <p class="muted">Vacinas e biotecnologia: tradição em imunobiológicos e resposta a emergências sanitárias.</p>
+      </article>
+      <article class="card">
+        <span class="chip">Espaço</span>
+        <h4>CBERS e Observação da Terra</h4>
+        <p class="muted">Satélites de sensoriamento remoto (parcerias internacionais) para monitoramento ambiental e agrícola.</p>
+      </article>
+      <article class="card">
+        <span class="chip">Energia</span>
+        <h4>Biocombustíveis & Programas de Etanol</h4>
+        <p class="muted">Pesquisa em cana-de-açúcar, motores flex e políticas de transição energética.</p>
+      </article>
+      <article class="card">
+        <span class="chip">Computação</span>
+        <h4>Supercomputação Santos Dumont</h4>
+        <p class="muted">Capacidades de alto desempenho para clima, materiais, saúde e IA.</p>
+      </article>
+      <article class="card">
+        <span class="chip">Agronegócio</span>
+        <h4>EMBRAPA & Inovação no Campo</h4>
+        <p class="muted">Cultivares adaptadas, manejo sustentável e aumento de produtividade com ciência aplicada.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- DESAFIOS & FUTURO -->
+  <section id="desafios">
+    <h3 class="section-title">Desafios & Oportunidades</h3>
+    <p class="section-sub">O ecossistema de CT&I evolui com continuidade de financiamento, inclusão e foco estratégico.</p>
+    <div class="grid">
+      <article class="card">
+        <h4>Desafios</h4>
+        <ul class="muted">
+          <li>Investimento estável e de longo prazo em P&D.</li>
+          <li>Integração universidade–empresa e transferência de tecnologia.</li>
+          <li>Infraestrutura e manutenção de laboratórios.</li>
+          <li>Formação, fixação e valorização de talentos.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h4>Oportunidades</h4>
+        <ul class="muted">
+          <li>Inteligência Artificial e semicondutores.</li>
+          <li>Transição energética, hidrogênio e biocombustíveis avançados.</li>
+          <li>Biotecnologia em saúde e agro.</li>
+          <li>Espaço, clima e sustentabilidade.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h4>Como o governo apoia</h4>
+        <ul class="muted">
+          <li>Editais de fomento, bolsas e subvenção econômica.</li>
+          <li>Parques tecnológicos e incubadoras.</li>
+          <li>Compras públicas de inovação.</li>
+          <li>Fundos setoriais e acordos internacionais.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <h3 class="section-title">Quiz Interativo</h3>
+    <p class="section-sub">Teste seus conhecimentos sobre ciência e inovação no Brasil!</p>
+    <div class="quiz" role="group" aria-label="Quiz sobre CT&I no Brasil">
+      <div class="question" data-answer="b">
+        <h4>1) Qual órgão federal é tradicionalmente associado ao fomento de pesquisa científica com bolsas e editais?</h4>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> Banco Central</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> CNPq</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> IBGE</label>
+          <label class="opt"><input type="radio" name="q1" value="d"> DNIT</label>
+        </div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+      <div class="question" data-answer="c">
+        <h4>2) A Lei de Inovação (2004) favorece principalmente:</h4>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> Aumento de tarifas de importação</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> Criação de bancos públicos</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> Colaboração entre ICTs e empresas</label>
+          <label class="opt"><input type="radio" name="q2" value="d"> Apenas ensino médio técnico</label>
+        </div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+      <div class="question" data-answer="a">
+        <h4>3) Qual dessas instituições é referência em pesquisa agropecuária?</h4>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> EMBRAPA</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> ANAC</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> ANVISA</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> BNDES</label>
+        </div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+      <button class="btn" id="btnCorrigir">Corrigir Quiz</button>
+      <div id="placar" class="muted"></div>
+    </div>
+  </section>
+
+<!-- FONTES & LINKS -->
+<section id="fontes">
+  <h3 class="section-title">Fontes & Links Úteis</h3>
+  <p class="section-sub">Para aprofundar: sites oficiais e instituições de referência.</p>
+  <ul class="muted">
+    <li><a href="https://www.gov.br/cnpq/" target="_blank">CNPq — Conselho Nacional de Desenvolvimento Científico e Tecnológico</a></li>
+    <li><a href="https://www.gov.br/capes/" target="_blank">CAPES — Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</a></li>
+    <li><a href="https://www.finep.gov.br/" target="_blank">FINEP — Financiadora de Estudos e Projetos</a></li>
+    <li><a href="https://www.gov.br/mcti/" target="_blank">MCTI — Ministério da Ciência, Tecnologia e Inovação</a></li>
+    <li>
+      <a href="https://fapesp.br/" target="_blank">FAPESP (SP)</a>, 
+      <a href="https://www.faperj.br/" target="_blank">FAPERJ (RJ)</a>, 
+      <a href="https://fapemig.br/" target="_blank">FAPEMIG (MG)</a>, 
+      entre outras
+    </li>
+  </ul>
+</section>
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="cols">
+      <div class="col">
+        <h4 style="margin:0 0 6px">Créditos</h4>
+        <p class="muted">Trabalho da Feira Cultural — Tema Governamental: Incentivo à Pesquisa e Criação de Tecnologias Brasileiras.</p>
+      </div>
+      <div class="col">
+        <h4 style="margin:0 0 6px">Equipe</h4>
+        <p class="muted" id="nomes">Adicionar nomes do grupo aqui.</p>
+      </div>
+      <div class="col">
+        <h4 style="margin:0 0 6px">Contato</h4>
+        <p class="muted">Email/Instagram da equipe — opcional.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Animação simples de contagem nos KPIs
+    function animateCount(el, to, dur=1200){
+      const start = 0; const diff = to - start; const t0 = performance.now();
+      function step(t){
+        const p = Math.min(1, (t - t0)/dur);
+        const val = Math.round(start + diff * (1 - Math.pow(1-p, 3))); // easeOutCubic
+        el.textContent = val.toLocaleString('pt-BR');
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const k1=document.getElementById('kpi-projetos');
+    const k2=document.getElementById('kpi-bolsas');
+    const k3=document.getElementById('kpi-parcerias');
+    // Valores ilustrativos para apresentação na feira; ajuste conforme o trabalho
+    window.addEventListener('load',()=>{
+      animateCount(k1, 4500);
+      animateCount(k2, +10000);
+      animateCount(k3, 230);
+    });
+
+    // Quiz
+    const btn = document.getElementById('btnCorrigir');
+    btn.addEventListener('click',()=>{
+      const qs = document.querySelectorAll('.question');
+      let acertos = 0;
+      qs.forEach(q=>{
+        const correta = q.dataset.answer;
+        const marcado = q.querySelector('input[type="radio"]:checked');
+        const result = q.querySelector('.result');
+        if(marcado){
+          if(marcado.value===correta){
+            result.textContent = '✔ Resposta correta!';
+            result.style.color = getComputedStyle(document.documentElement).getPropertyValue('--success');
+            acertos++;
+          } else {
+            result.textContent = '✘ Resposta incorreta.';
+            result.style.color = getComputedStyle(document.documentElement).getPropertyValue('--danger');
+          }
+        } else {
+          result.textContent = 'Selecione uma alternativa.';
+          result.style.color = '#e5e7eb';
+        }
+      });
+      document.getElementById('placar').textContent = `Você acertou ${acertos} de ${qs.length} perguntas.`;
+    });
+
+    // Suavizar foco ao navegar por âncoras para acessibilidade
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',()=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          setTimeout(()=>el.setAttribute('tabindex','-1')||el.focus(),400);
+        }
+      })
+    })
+  </script>
+</body>
+</html>
