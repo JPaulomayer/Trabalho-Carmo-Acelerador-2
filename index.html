@@ -135,14 +135,9 @@
     </div>
     <div class="card-hero">
    <section class="banner">
-    <img src="ufjf.png" alt="UFJF">
+    <img src="MCTIAssinatura-removebg-preview.png" alt="LATTES">
   </section>
-      <div class="kpis">
-        <div class="kpi"><div class="v" id="kpi-projetos">0</div><div class="l">Projetos apoiados (exemplo)</div></div>
-        <div class="kpi"><div class="v" id="kpi-bolsas">0</div><div class="l">Bolsas de estudo (exemplo)</div></div>
-        <div class="kpi"><div class="v" id="kpi-parcerias">0</div><div class="l">Parcerias público-privadas</div></div>
-      </div>
-    </div>
+     
   </header>
 
   <!-- POLÍTICAS & HISTÓRIA -->
@@ -204,7 +199,7 @@
       </article>
       <article class="card">
         <span class="chip">Computação</span>
-        <h4>Supercomputação Santos Dumont</h4>
+        <h4>Supercomputador Santos Dumont</h4>
         <p class="muted">Capacidades de alto desempenho para clima, materiais, saúde e IA.</p>
       </article>
       <article class="card">
@@ -329,26 +324,7 @@
   </footer>
 
   <script>
-    // Animação simples de contagem nos KPIs
-    function animateCount(el, to, dur=1200){
-      const start = 0; const diff = to - start; const t0 = performance.now();
-      function step(t){
-        const p = Math.min(1, (t - t0)/dur);
-        const val = Math.round(start + diff * (1 - Math.pow(1-p, 3))); // easeOutCubic
-        el.textContent = val.toLocaleString('pt-BR');
-        if(p<1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    const k1=document.getElementById('kpi-projetos');
-    const k2=document.getElementById('kpi-bolsas');
-    const k3=document.getElementById('kpi-parcerias');
-    // Valores ilustrativos para apresentação na feira; ajuste conforme o trabalho
-    window.addEventListener('load',()=>{
-      animateCount(k1, 4500);
-      animateCount(k2, +10000);
-      animateCount(k3, 230);
-    });
+
 
     // Quiz
     const btn = document.getElementById('btnCorrigir');
